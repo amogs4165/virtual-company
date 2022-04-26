@@ -21,7 +21,7 @@ const About = () => {
           maxHeight: { md: 500 },
           maxWidth: { md: "100%" },
         }}
-        alt="The house from the offer."
+        alt="bg image."
         src="./images/bg.jpg"
       />
       <Grid container>

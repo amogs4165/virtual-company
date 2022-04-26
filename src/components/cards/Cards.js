@@ -23,6 +23,15 @@ const Cards = (props) => {
             <Typography variant="body2" color="text.secondary">
               {props.content}
             </Typography>
+            {props.company && (
+              <Typography>
+                <h4>Company:</h4>
+                <h4>Founder:</h4>
+                <h4>Employees:</h4>
+                <h4>Rating:</h4>
+                <h4>Starting at:</h4>
+              </Typography>
+            )}
           </CardContent>
         </CardActionArea>
       </Card>

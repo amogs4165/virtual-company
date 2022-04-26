@@ -1,0 +1,8 @@
+.textCenter {
+    margin-top: 20px;
+  text-align: center;
+}
+.alignEnd {
+  display: flex;
+  align-items: flex-end;
+}
