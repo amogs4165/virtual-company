@@ -1,0 +1,67 @@
+.rightMainDiv {
+  min-width: 744px;
+  min-height: 1000px;
+  background-color: rgb(255, 255, 255);
+}
+.messageInfo {
+  max-width: 600px;
+  min-height: 600px;
+  margin: 30px 0px 0px 70px;
+  border-radius: 10px;
+  background-color: rgb(00, 00, 00, 83%);
+  color: white;
+  padding-top: 20px;
+}
+.center {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#heading {
+  font-size: x-large;
+  font-weight: bold;
+  margin-left: 40px;
+}
+.inputButton {
+  margin: 10px 100px;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+#inputField {
+  border: none;
+  height: 35px;
+  width: 80px;
+  margin-right: 10px;
+}
+#sendButton {
+  background-color: rgb(88, 183, 103);
+  border: none;
+  border-radius: 3px;
+  height: 35px;
+  width: 75px;
+}
+
+.hr {
+  border: 1px solid rgb(255, 255, 255);
+  width: 70px;
+  margin: 10px;
+}
+#messageButton {
+  border: none;
+  border-radius: 3px;
+  width: 140px;
+  height: 30px;
+}
+.joinTeam {
+  margin-top: 20px;
+  text-align: center;
+}
+#joinTeamButton{
+    border: none;
+    border-radius: 3px;
+    margin-top: 10px;
+    width: 240px;
+    height: 38px;
+}

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from 'react-router-dom';
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,11 +15,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from 'axios';
+import axios from "axios";
 import "./Header.css";
-
-
-
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,35 +59,40 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
-  
-  const { loginWithPopup, logout, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const {
+    loginWithPopup,
+    loginWithRedirect,
+    logout,
+    user,
+    isAuthenticated,
+    getAccessTokenSilently,
+  } = useAuth0();
 
-  const apicall = ()=>{
-    axios.get("http://127.0.0.1:4000/api").then((res)=>{
-      console.log(res.data)
-    }).catch((error)=>{
-      console.log(error)
-    })
-  }
+  const apicall = () => {
+    axios
+      .get("http://127.0.0.1:4000/api")
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  const apicall2 = async()=>{
-      try {
-          
-          const token = await getAccessTokenSilently()
-          console.log(token)
-          const response = await axios.get("http://127.0.0.1:4000/user",{
-              headers:{
-                  authorization: `Bearer ${token}`
-              }
-          })
-          console.log(response.data)
-      } catch (error) {
-          console.log(error.message)
-      }
-  }
-
- 
-  
+  const apicall2 = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+      console.log(token);
+      const response = await axios.get("http://127.0.0.1:4000/user", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -131,8 +134,13 @@ const Header = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {user && <MenuItem onClick={handleMenuClose}>Profile</MenuItem>}
-      {user && <MenuItem onClick={()=>logout()}>Logout</MenuItem>}
+      {isAuthenticated && (
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      )}
+      {isAuthenticated && <MenuItem onClick={() => logout()}>Logout</MenuItem>}
+      {!isAuthenticated && (
+        <MenuItem onClick={() => loginWithRedirect()}>LogIn</MenuItem>
+      )}
     </Menu>
   );
 
@@ -153,15 +161,15 @@ const Header = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {!user && (
-        <MenuItem onClick={()=>loginWithPopup()}>
+      {!isAuthenticated && (
+        <MenuItem onClick={() => loginWithPopup()}>
           <IconButton size="large" color="inherit">
             <AccountCircle />
           </IconButton>
           <p>Login</p>
         </MenuItem>
       )}
-      {user && (
+      {isAuthenticated && (
         <MenuItem>
           <IconButton
             size="large"
@@ -175,7 +183,7 @@ const Header = () => {
           <p>Messages</p>
         </MenuItem>
       )}
-      {user && (
+      {isAuthenticated && (
         <MenuItem>
           <IconButton
             size="large"
@@ -189,7 +197,7 @@ const Header = () => {
           <p>Notifications</p>
         </MenuItem>
       )}
-      {user && (
+      {isAuthenticated && (
         <MenuItem onClick={handleProfileMenuOpen}>
           <IconButton
             size="large"
@@ -206,9 +214,17 @@ const Header = () => {
     </Menu>
   );
 
-  return (
+  const navigate = useNavigate()
 
-     <>
+  React.useEffect(() => {
+    if(isAuthenticated){
+     
+    }
+  }, [isAuthenticated])
+  
+
+  return (
+    <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
           position="static"
@@ -239,7 +255,7 @@ const Header = () => {
             <Box sx={{ flexGrow: 1 }} />
 
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              {user && (
+              {isAuthenticated && (
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -250,7 +266,7 @@ const Header = () => {
                   </Badge>
                 </IconButton>
               )}
-              {user && (
+              {isAuthenticated && (
                 <IconButton
                   size="large"
                   aria-label="show 17 new notifications"
@@ -268,7 +284,7 @@ const Header = () => {
                 aria-label="account of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick=  {!user ? handleProfileMenuOpen : ()=>apicall2() }
+                onClick={handleProfileMenuOpen}
                 color="inherit"
               >
                 <AccountCircle style={{ color: "black" }} />
@@ -280,7 +296,9 @@ const Header = () => {
                 aria-label="show more"
                 aria-controls={mobileMenuId}
                 aria-haspopup="true"
-                onClick={ !user ? handleMobileMenuOpen : ()=>apicall()}
+                onClick={
+                  !isAuthenticated ? handleMobileMenuOpen : () => apicall()
+                }
                 color="inherit"
               >
                 <MoreIcon />
