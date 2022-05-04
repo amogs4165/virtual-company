@@ -1,11 +1,11 @@
 .rightMainDiv {
-  min-width: 744px;
-  min-height: 1000px;
+  max-width: 744px;
+  max-height: 1000px;
   background-color: rgb(255, 255, 255);
 }
 .messageInfo {
   max-width: 600px;
-  min-height: 600px;
+  max-height: 600px;
   margin: 30px 0px 0px 70px;
   border-radius: 10px;
   background-color: rgb(00, 00, 00, 83%);
@@ -64,4 +64,5 @@
     margin-top: 10px;
     width: 240px;
     height: 38px;
+    margin-bottom: 40px;
 }

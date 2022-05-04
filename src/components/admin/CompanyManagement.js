@@ -7,54 +7,56 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import axios from 'axios';
+import { Button } from '@mui/material';
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-  {
-    id: 'population',
-    label: 'Population',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'density',
-    label: 'Density',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
+  { id: 'No', label: 'No', minWidth: 170 },
+  { id: 'Company', label: 'Company', minWidth: 100 },
+  { id: 'TeamStrength', label: 'Team Strength', minWidth: 170 },
+  { id: 'TotalRevenue', label: 'Total Revenue', minWidth: 170 },
+  { id: 'Rating', label: 'Rating', minWidth: 170 },
+  { id: 'Action', label: 'Action', minWidth: 170 },
+  
+
+  
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
+function createData(No, Company, TeamStrength, TotalRevenue, Rating, Action) {
+  
+  return { No, Company, TeamStrength, TotalRevenue, Rating, Action };
 }
 
+axios({
+  method:"get",
+  url:"http://localhost:4000/company/pending",
+
+})
+.then((resp)=>{
+  console.log(resp.data.pendingCompanies)
+}).catch((error)=>{
+  console.log(error)
+})
+
+const editIcon = (a)=>{ 
+  return(
+    <>
+    <button style={{width:35, height:30,backgroundColor:"blue"}} onClick={(()=>console.log(a))} />
+    <button style={{width:35, height:30,backgroundColor:"blue", marginLeft: "10px"}} />
+    </>
+
+  )
+    };
+    
+
 const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
+  createData('1', 'Infotech', 4, 10000,5,editIcon(1), editIcon(1)),
+  createData('2', 'Soft solutions', 4, 10000,5),
+  createData('3', 'Infotech', 4, 10000,5),
+  createData('4', 'Infotech', 4, 10000,5),
+  createData('5', 'Infotech', 4, 10000,5),
+
+
 ];
 
 export default function StickyHeadTable() {
@@ -72,7 +74,7 @@ export default function StickyHeadTable() {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

@@ -1,7 +1,7 @@
-import { withTheme } from "@emotion/react";
-import { AlignVerticalCenter } from "@mui/icons-material";
+
 import { Container, Grid, TextareaAutosize, TextField } from "@mui/material";
-import { flexbox, maxWidth } from "@mui/system";
+import Portfolio from "../cards/Carousel";
+import MemberDetails from "../cards/memberDetails";
 import "./CompanyDetails.css";
 
 const CompanyDetails = () => {
@@ -9,7 +9,7 @@ const CompanyDetails = () => {
     <Container maxWidth="xl">
       <Grid container style={{ display: "flex", marginTop: "50px" }}>
         <Grid style={{ maxWidth: 744 }} xs={12} md={6}>
-         
+         <div style={{marginBottom:10}}>
           <h2>Infotech</h2>
           <p>
             infotech and some dummy contents are the best for dummy lines so
@@ -20,15 +20,19 @@ const CompanyDetails = () => {
             opposed to using 'Content here, content here', making it look like
             readable English.
           </p>
+          </div>
+          <Portfolio/>
+          <MemberDetails/>
          
         </Grid>
+    
         <Grid className="rightMainDiv" xs={12} md={6}>
           <Grid className="messageInfo">
               <h3 id="heading">Make an offer</h3>
             <Grid className="center">
               <TextareaAutosize
                 aria-label="minimum height"
-                minRows={15}
+                minRows={7}
                 placeholder="Minimum 3 rows"
                 style={{ width: 400 }}
               />
